@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card-body">
+                    <h1 style="text-align:justify;">{% block title %} {{ object.title }} {% endblock title %}</h1>
+                    <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
+                    <p style="text-align:justify;font-size:30px;">{{ object.content | safe |linebreaksbr }}</p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock content %}
