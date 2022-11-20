@@ -21,11 +21,7 @@ class Post(models.Model):
     category = models.CharField(max_length=200, default='calatorii')
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    tags = TaggableManager()
-
-    # @property
-    # def escaped_content(self):
-    #     return strip_tags(self.content)
+    tags = models.CharField(max_length=200, null=True, default="")
 
 
     class Meta:

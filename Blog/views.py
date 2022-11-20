@@ -1,6 +1,8 @@
+
+
 from django.urls import reverse_lazy
 from django.views import generic
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
 from Blog.forms import PostForm
 from Blog.models import Post
@@ -21,3 +23,9 @@ class CreatePostView(CreateView):
     form_class = PostForm
     template_name = 'post.html'
     success_url = reverse_lazy("home")
+class FullPostList(ListView):
+    model = Post
+    form_class = PostForm
+    template_name = 'cuprins_blog.html'
+    success_url = reverse_lazy("home")
+
