@@ -21,6 +21,7 @@ from Blog.views import CreatePostView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('', include('Blog.urls')),
 
 ]

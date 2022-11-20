@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from ckeditor import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Config CKEditor
+CKEDITOR_CONFIGS = {
+    'awesome_ckeditor' : {
+        'toolbar' : 'full',
+        'height' : 500,
+    },
+}
+
 
 # Application definition
 
@@ -40,6 +49,8 @@ INSTALLED_APPS = [
     # 'Blog.apps.BlogConfig',
     'Blog',
     'taggit',
+    'ckeditor',
+
 
 ]
 TAGGIT_CASE_INSENSITIVE = True
