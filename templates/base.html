@@ -53,7 +53,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item text-black">
-                    <a class="nav-link text-black font-weight-bold" href="{% url 'post' %}">New Post</a>
+                    <a class="nav-link text-black font-weight-bold" href="{% url 'post' %}">Adauga postare</a>
                 </li>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -61,17 +61,25 @@
                         Dropdown button
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Calatorii</a></li>
-                        <li><a class="dropdown-item" href="#">Carti</a></li>
+                        <li><a class="dropdown-item" href="{% url 'lista_calatorii' %}">Călătorii</a></li>
+                        <li><a class="dropdown-item" href="{% url 'lista_carti' %}">Cărţi</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </div>
                 <li class="nav-item text-black">
-                    <a class="nav-link text-black font-weight-bold" href="#">Contact</a>
+                    <a class="nav-link text-black font-weight-bold" href="{% url 'despre_mine' %}">Despre mine</a>
+                </li>
+                  <li class="nav-item text-black">
+                    <a class="nav-link text-black font-weight-bold" href="{% url 'contact' %}">Contact</a>
                 </li>
                  <li class="nav-item text-black">
-                    <a class="nav-link text-black font-weight-bold" href="{% url 'cuprins_blog' %}">Ce contine blogul?</a>
+                    <a class="nav-link text-black font-weight-bold" href="{% url 'cuprins_blog' %}">Ce conţine blogul?</a>
                 </li>
+                <form action ="{% url 'search_blog' %}" method= "GET" class="d-flex" role="search">
+                    {% csrf_token %}
+                    <input name= "query"  class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
             </ul>
         </div>
     </div>

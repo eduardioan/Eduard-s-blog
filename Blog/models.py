@@ -23,7 +23,6 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     tags = models.CharField(max_length=200, null=True, default="")
 
-
     class Meta:
         ordering = ['-created_on']
 

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <header>
+
+
+        <h1 style="text-align:center;font-size:60px;"> Despre mine</h1>
+        <div class="flex-container">>
+            <div class="col-md-8">
+                <img style="width: 600px;display: block;  margin-left: auto;  margin-right: auto; "
+                     alt="Gradina japoneza"
+                     src="{% static 'images/poza_baza.jpg' %}"/>
+            </div>
+            <div class="col-md-6">
+                <div class="container">
+                    <p style="text-align: justify">
+                        Ioan Eduard, ghid de turism
+                        <br>începând din anul 2005.
+                        Până<br> în prezent am condus peste
+                        <br> 150 de circuite în toate
+                        <br> colţurile lumii.
+                    </p>
+                    <p>
+                    Am străbătut Europa de la Capul Nord până în Insula Creta şi din Irlanda până la Munţii Urali. M-au
+                    atras dintotdeauna Orientul Apropiat, Asia Centrală şi Drumul Mătăsii, mă simt acasă în Orientul
+                    Îndepărtat, dar inima îmi bate întotdeauna mai cu putere când mă gândesc la Japonia, de al cărei
+                    miraj mă simt irezistibil atras.
+
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}
+
+
