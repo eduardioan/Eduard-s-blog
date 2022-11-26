@@ -13,7 +13,8 @@ urlpatterns = [
     path('blog/search/',SearchResultView.as_view(), name='search_blog'),
     path('blog/despre/', show_despre_mine_page, name='despre_mine'),
     path('blog/contact/', show_contact_page, name='contact'),
-    path('blog/tag-search/',TagsList.as_view(), name='tag_search'),
+    path('blog/tag-select/<str:tag>',PostListTag.as_view(), name='tag_select_list'),
     path('blog/share/<str:social>/<str:id>', share_on_media, name="share_on_media"),
     # path('blog/share-whatsapp/<str:id>', share_on_whatsapp_func, name="share_on_whatsapp"),
+
 ]

@@ -1,4 +1,7 @@
-{% extends 'base.html' %} {% load static %}{% block content %}
+{% extends 'base.html' %}
+{% load customs %}
+{% load static %}
+{% block content %}
 {#    {% load social_share %}#}
     <div class="container">
         <div class="row">
@@ -6,13 +9,13 @@
                 <div class="card-body">
                     <h1 style="text-align:justify;">{% block title %} {{ object.title }} {% endblock title %}</h1>
                     <p class=" text-muted">{{ post.author }} | {{ post.created_on }} |
-                        <a href="{% url "post" %}"> {{ post.tags|test }}</a></p>
+
+                        {% for item in post.tags|string_to_list %}
+                            <a href="{% url "tag_select_list" tag=item %}"> {{ item }}</a></p>
+                        {% endfor %}
 
                         <a href="{% url 'share_on_media' social=1 id=post.title %}"><img src="{% static 'images/facebook.png' %}"></a>
                         <a href="{% url 'share_on_media' social=2 id=post.title %}"><img src="{% static 'images/whatsapp.png' %}"></a>
-{#                        {% post_to_facebook object_or_url "Distribuie pe facebook" %}#}
-{#                        | {% post_to_whatsapp object_or_url "Distribuie pe WhatsApp" %}#}
-
 
                     <p style="text-align:justify;font-size:50px;">{{ object.content | safe }}</p>
 

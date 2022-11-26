@@ -14,12 +14,6 @@ from Blog.forms import PostForm
 from Blog.models import Post
 from django import template
 
-register = template.Library()
-
-@register.filter
-def test(value):
-    return value
-
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'index.html'
@@ -61,9 +55,9 @@ class SearchResultView(ListView):
         object_list = Post.objects.filter(content__icontains=query)
         return object_list
 
-class TagsList(generic.ListView):
-    queryset = Post.objects.filter(status=1, tags='').order_by('-created_on')
-    template_name = 'tag_search.html'
+# class TagsList(generic.ListView):
+#     queryset = Post.objects.filter(status=1, tags='').order_by('-created_on')
+#     template_name = 'tag_search.html'
 
 def show_despre_mine_page(request):
     return render(request, 'despre_mine.html')
@@ -78,3 +72,16 @@ def share_on_media(request, social, id):
         base_url = rf'https://api.whatsapp.com/send?text=http%3A//127.0.0.1%3A8000/{format_title}/'
     return HttpResponseRedirect(base_url)
 
+class PostListTag(generic.ListView):
+    model = Post
+    template_name = 'tag_select_list.html'
+    def get_queryset(self):  # new
+        tag = str(self.request.path).strip().split("/")
+        tag = tag[len(tag)-1]
+        items = Post.objects.all()
+        buffer = []
+        for item in items:
+            if tag in item.tags:
+                buffer.append(item.title)
+        print(buffer)
+        return Post.objects.filter(title__in=buffer)
