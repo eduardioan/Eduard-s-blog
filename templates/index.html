@@ -24,13 +24,14 @@
                 </div>
                 <div class=flex-container>
                     <div>
-                        <h1>Selectare taguri</h1>
+                        <h4 style="text-justify:auto ">Căutare după taguri.</h4>
 
                         <form action="{% url 'tag_select_list_check' %}">
                             {% for item in post_list|extract_unique_tags_from_post %}
-                                <a href="{% url "tag_select_list" tag=item %}"> {{ item }}</a></p>
+                                <input type="checkbox" id="ckb" name="tag" value={{ item }}>
+                                <label for="ckb" style="color: maroon"> {{ item }} </label><br>
                             {% endfor %}
-
+                            <input type="submit" value="Caută" class="btn btn-primary btn-lg active" >
                         </form>
 
                     </div>
@@ -63,24 +64,5 @@
         </div>
     </div>
 
-    <div class=flex-container>
-        <div>
-            <h1>Selectare taguri</h1>
 
-            <form action="{% url 'tag_select_list_check' %}">
-                {% for item in post_list|extract_unique_tags_from_post %}
-                    {#                    <input type="checkbox" id="ckb" name="tag" value={{ item }}>#}
-                    {#                    <label for="ckb">  <a href="{% url "tag_select_list" tag=item %}"> {{ item }}</a></label><br>#}
-                    <a href="{% url "tag_select_list" tag=item %}"> {{ item }}</a></p>
-                {% endfor %}
-
-                {#                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">#}
-                {#                <label for="vehicle2"> I have a car</label><br>#}
-                {#                <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">#}
-                {#                <label for="vehicle3"> I have a boat</label><br><br>#}
-                {#                <input type="submit" value="Submit">#}
-            </form>
-
-        </div>
-    </div>
 {% endblock %}

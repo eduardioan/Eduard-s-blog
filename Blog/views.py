@@ -77,15 +77,27 @@ class PostListTag(generic.ListView):
     template_name = 'tag_select_list.html'
 
     def get_queryset(self):  # new
-
-        tag = str(self.request.path).strip().split("/")
-        tag = tag[len(tag)-1]
-
+        req = self.request
+        tags = None
+        if "tag-select-check" in req.path:
+            tags = self.__extract_tag_from_checkbox(req.GET)
+        else:
+            tags = self.__extract_tag_from_ahref(self.request.path)
         items = Post.objects.all()
-        buffer = []
+        buffer = set()
         for item in items:
-            if tag in item.tags:
-                buffer.append(item.title)
+            for tag in tags:
+                if tag in item.tags:
+                    buffer.add(item.title)
         return Post.objects.filter(title__in=buffer)
 
+    def __extract_tag_from_ahref(self, request):
+        tag = str(request).strip().split("/")
+        return tag[len(tag) - 1]
 
+    def __extract_tag_from_checkbox(self, request):
+        return dict(request)['tag']
+
+# class DespreMine(generic.ListView):
+#     model = Post
+#     template_name = 'despre_mine.html'
