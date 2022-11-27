@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load customs %}
 {% load static %}
 {% block content %}
 
@@ -14,10 +15,11 @@
             </div>
             <div class="col-md-1">
                 <div class="sidenav">
-                <a href="{% url 'cuprins_blog' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ce conţine blogul?</a>
-{#                    {% for post in post_list|slice:":10" %}#}
-{#                        <a href="{% url 'post_detail' post.slug %}"> {{ post.title }}</a>#}
-{#                    {% endfor %}#}
+                    <a href="{% url 'cuprins_blog' %}" class="btn btn-primary btn-lg active" role="button"
+                       aria-pressed="true">Ce conţine blogul?</a>
+                    {#                    {% for post in post_list|slice:":10" %}#}
+                    {#                        <a href="{% url 'post_detail' post.slug %}"> {{ post.title }}</a>#}
+                    {#                    {% endfor %}#}
 
                 </div>
             </div>
@@ -34,7 +36,8 @@
                         <div class="card-body">
 
                             <h2 class="card-title">{{ post.title }}</h2>
-                            <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on }} | {{ post.tags }}    </p>
+                            <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on }}
+                                | {{ post.tags }}    </p>
                             <p class="card-text">{{ post.content|striptags|safe|slice:":100" }}</p>
                             <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Vezi mai mult &rarr;</a>
 
@@ -46,6 +49,23 @@
             {% endfor %}
         </div>
     </div>
+
+    <div class=flex-container>
+        <div>
+            <h1>Checkbox</h1>
+
+            <form action="{% url 'tag_select_list_check' %}">
+                {% for item in post_list|extract_unique_tags_from_post %}
+                    <input type="checkbox" id="ckb" name="tag" value={{ item }}>
+                    <label for="ckb">{{ item }}</label><br>
+                {% endfor %}
+{#                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">#}
+{#                <label for="vehicle2"> I have a car</label><br>#}
+{#                <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">#}
+{#                <label for="vehicle3"> I have a boat</label><br><br>#}
+                <input type="submit" value="Submit">
+            </form>
+
+        </div>
+    </div>
 {% endblock %}
-
-

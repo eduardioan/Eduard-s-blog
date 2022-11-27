@@ -75,13 +75,25 @@ def share_on_media(request, social, id):
 class PostListTag(generic.ListView):
     model = Post
     template_name = 'tag_select_list.html'
+
     def get_queryset(self):  # new
-        tag = str(self.request.path).strip().split("/")
-        tag = tag[len(tag)-1]
+        req = self.request
+        tag = ""
+        if "tag-select-check" in req.path:
+            tags = req.GET
+            elements = dict(tags)
+            var = 5
+        else:
+            tag = str(self.request.path).strip().split("/")
+            tag = tag[len(tag)-1]
+
         items = Post.objects.all()
         buffer = []
         for item in items:
             if tag in item.tags:
                 buffer.append(item.title)
-        print(buffer)
         return Post.objects.filter(title__in=buffer)
+
+# class DespreMine(generic.ListView):
+#     model = Post
+#     template_name = 'despre_mine.html'

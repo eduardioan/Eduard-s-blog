@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load customs %}
+
 {% block content %}
 
     <header>
@@ -22,10 +24,11 @@
                         <br> colţurile lumii.
                     </p>
                     <p>
-                    Am străbătut Europa de la Capul Nord până în Insula Creta şi din Irlanda până la Munţii Urali. M-au
-                    atras dintotdeauna Orientul Apropiat, Asia Centrală şi Drumul Mătăsii, mă simt acasă în Orientul
-                    Îndepărtat, dar inima îmi bate întotdeauna mai cu putere când mă gândesc la Japonia, de al cărei
-                    miraj mă simt irezistibil atras.
+                        Am străbătut Europa de la Capul Nord până în Insula Creta şi din Irlanda până la Munţii Urali.
+                        M-au
+                        atras dintotdeauna Orientul Apropiat, Asia Centrală şi Drumul Mătăsii, mă simt acasă în Orientul
+                        Îndepărtat, dar inima îmi bate întotdeauna mai cu putere când mă gândesc la Japonia, de al cărei
+                        miraj mă simt irezistibil atras.
 
 
                     </p>
@@ -33,7 +36,25 @@
             </div>
         </div>
     </header>
-
+{#    <div class=flex-container>#}
+{#        <div>#}
+{#            <h1>Checkbox</h1>#}
+{##}
+{#            <form action="{% url 'tag_select_list_check'  %}" >#}
+{#                {% for item in post.tags|string_to_list %}#}
+{#                    <a href="{% url "tag_select_list" tag=item %}"> {{ item }}</a></p>#}
+{#                {% endfor %}#}
+{#                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">#}
+{#                <label for="vehicle1"> I have a bike</label><br>#}
+{#                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">#}
+{#                <label for="vehicle2"> I have a car</label><br>#}
+{#                <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">#}
+{#                <label for="vehicle3"> I have a boat</label><br><br>#}
+{#                <input type="submit" value="Submit" >#}
+{#            </form>#}
+{##}
+{#        </div>#}
+{#    </div>#}
 {% endblock %}
 
 

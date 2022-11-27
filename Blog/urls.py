@@ -14,7 +14,8 @@ urlpatterns = [
     path('blog/despre/', show_despre_mine_page, name='despre_mine'),
     path('blog/contact/', show_contact_page, name='contact'),
     path('blog/tag-select/<str:tag>',PostListTag.as_view(), name='tag_select_list'),
+    path('blog/tag-select-check/',PostListTag.as_view(), name='tag_select_list_check'),
     path('blog/share/<str:social>/<str:id>', share_on_media, name="share_on_media"),
     # path('blog/share-whatsapp/<str:id>', share_on_whatsapp_func, name="share_on_whatsapp"),
-
+    # path('blog/despre/', DespreMine.as_view(), name='despre_mine'),
 ]
