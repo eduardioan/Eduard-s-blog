@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Q
 from django.db.models.sql import query
 from django.http import HttpResponse, request
@@ -26,11 +27,12 @@ class PostDetail(generic.DetailView):
 
 
 
-class CreatePostView(CreateView):
+class CreatePostView(LoginRequiredMixin, PermissionRequiredMixin,CreateView):
     model = Post
     form_class = PostForm
     template_name = 'post.html'
     success_url = reverse_lazy("home")
+    permission_required = 'blog.view_post'
 class FullPostList(ListView):
     model = Post
     form_class = PostForm

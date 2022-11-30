@@ -52,9 +52,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
+                {% if perms.blog.view_post %}
                 <li class="nav-item text-black">
                     <a class="nav-link text-black font-weight-bold" href="{% url 'post' %}">Adauga postare</a>
                 </li>
+                {% endif %}
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false">

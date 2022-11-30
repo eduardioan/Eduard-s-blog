@@ -1,5 +1,10 @@
-<html lang="en">
+{% extends "base.html" %}
+{% load static %}
+{% load customs %}
 
+{% block content %}
+<br>
+<br>
 <body>
 <ul class="menu">
 {% for post in post_list %}
@@ -8,11 +13,8 @@
 
 {% endfor %}
 </ul>
-{#	  <li><a href="link" class="active">Home</a>#}
-{#	  <li><a href="link">Menu</a></link>#}
-{#	  <li><a href="link">study</a></link>#}
-{#	  <li><a href="link">contact</a></link>#}
+
 
 
 </body>
-</html>
+{% endblock %}
