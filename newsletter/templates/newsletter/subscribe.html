@@ -1,0 +1,46 @@
+{#{% extends "base.html" %}#}
+{#{% block content %}#}
+{#<form action="{% url 'newsletter:subscribe' %}" method="post">#}
+{#{% csrf_token %}#}
+{#{{ form.as_p }}#}
+{#<button type="submit">Adauga</button>#}
+{#</form>#}
+{#{% endblock %}#}
+{% extends 'base.html' %}
+
+<br>
+
+{% block content %}
+    <footer class="footer-color text-center footer-text">
+        <div class="container p-4">
+
+                <section class="">
+                    <form action="{% url 'newsletter:subscribe' %}" method="post">
+                        <div class="row d-flex justify-content-center">
+                            {% csrf_token %}
+
+                            <div class="col-auto">
+                                <p class="pt-2">Abonare newsletter:</p>
+                            </div>
+
+                            <div class="col-auto">
+                                <input id="name" name="name" class="form-control" placeholder="Introdu numele"/>
+                            </div>
+
+                            <div class="col-auto">
+                                <input id="email" name="email" type="email" class="form-control"
+                                       placeholder="Introdu adresa de e-mail:"/>
+                            </div>
+
+                            <div class="col-auto">
+                                <button type="submit">Adaugă</button>
+                                 <a href="{% url 'newsletter:subscription_done' %}" class="btn btn-primary btn-lg active" role="button"
+                       aria-pressed="true" >Adauga_link</a>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
+        </div>
+    </footer>
+{% endblock %}

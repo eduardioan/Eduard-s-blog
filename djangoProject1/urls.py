@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', include('Blog.urls')),
+    path('', include('newsletter.urls')),
 
 ]
