@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+from ckeditor import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Config CKEditor
+CKEDITOR_CONFIGS = {
+    'awesome_ckeditor' : {
+        'toolbar' : 'full',
+        'height' : 500,
+    },
+}
+
 
 # Application definition
 
@@ -40,6 +49,10 @@ INSTALLED_APPS = [
     # 'Blog.apps.BlogConfig',
     'Blog',
     'taggit',
+    'ckeditor',
+    'django_social_share',
+    'newsletter',
+
 
 ]
 TAGGIT_CASE_INSENSITIVE = True
@@ -121,8 +134,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR), 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.horiascurtu.ro'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'testpythonro32@horiascurtu.ro'
+EMAIL_HOST_PASSWORD = 'Django1234!'
+EMAIL_USE_TLS = True

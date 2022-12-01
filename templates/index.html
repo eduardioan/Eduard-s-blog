@@ -1,38 +1,69 @@
 {% extends "base.html" %}
+{% load customs %}
 {% load static %}
 {% block content %}
 
     <header>
+<br>
+<br>
 
         <h1 style="text-align:center;font-size:60px;"> Fărâme de lume</h1>
-        <img style="width: 1024px;display: block;  margin-left: auto;  margin-right: auto; "
-             alt="Gradina japoneza"
-             src="{% static 'images/poza_baza.jpg' %}"/>
+        <div class="flex-container">>
+            <div class="col-md-10">
+                <img style="width: 1024px;display: block;  margin-left: auto;  margin-right: auto; "
+                     alt="Gradina japoneza"
+                     src="{% static 'images/poza_baza.jpg' %}"/>
+            </div>
+            <div class="col-md-1">
+                <div class="sidenav">
+                    <a href="{% url 'cuprins_blog' %}" class="btn btn-primary btn-lg active" role="button"
+                       aria-pressed="true">Ce conţine blogul?</a>
+                    {#                    {% for post in post_list|slice:":10" %}#}
+                    {#                        <a href="{% url 'post_detail' post.slug %}"> {{ post.title }}</a>#}
+                    {#                    {% endfor %}#}
 
+                </div>
+                <div class=flex-container>
+                    <div>
+                        <h4 style="text-justify:auto ">Căutare după taguri.</h4>
+
+                        <form action="{% url 'tag_select_list_check' %}">
+                            {% for item in post_list|extract_unique_tags_from_post %}
+                                <input type="checkbox" id="ckb" name="tag" value={{ item }}>
+                                <label for="ckb" style="color: maroon"> {{ item }} </label><br>
+                            {% endfor %}
+                            <input type="submit" value="Caută" class="btn btn-primary btn-lg active" >
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
     <div class="container-fluid">
 
         <div class="row">
-          {% for post in post_list %}
-            <div class="col-md-4">
+            {% for post in post_list|slice:":3" %}
+                <div class="col-md-4">
 
                     <div class="card">
 
                         <div class="card-body">
 
                             <h2 class="card-title">{{ post.title }}</h2>
-                            <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on }} </p>
-                            <p class="card-text">{{ post.content|slice:":100" }}</p>
+                            <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on }}
+                                | {{ post.tags }}    </p>
+                            <p class="card-text">{{ post.content|striptags|safe|slice:":100" }}</p>
                             <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Vezi mai mult &rarr;</a>
 
                         </div>
 
                     </div>
 
-            </div>
-        {% endfor %}
+                </div>
+            {% endfor %}
         </div>
     </div>
+
+
 {% endblock %}
-
-

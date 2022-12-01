@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% load customs %}
+
+{% block content %}
+<br>
+<br>
+<body>
+<ul class="menu">
+{% for post in post_list %}
+
+<li><a href="{% url 'post_detail' post.slug %}"> {{ post.title }}</a></li>
+
+{% endfor %}
+</ul>
+
+
+
+</body>
+{% endblock %}

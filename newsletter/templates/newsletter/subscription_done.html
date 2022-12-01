@@ -1,0 +1,26 @@
+{% extends 'base.html ' %}
+
+{% block title %} Newsletter inregistrat {% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">V-aţi înregistrat cu succes la newsletter.</h3>
+                </div>
+                    <div class="card-body">
+                       <h3 class="text-center"> Vă mulţumesc.</h3>
+                    </div>
+                    <div class="card-footer text-center">
+                      <a href="{% url 'home' %}"class="btn btn-outline-secondary">Home</a>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

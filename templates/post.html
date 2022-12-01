@@ -1,6 +1,7 @@
 <h1>Creare postare noua</h1>
 <form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Adauga noua postare</button>
+    {% csrf_token %}
+    {{ form.media}}
+    {{ form.as_p }}
+    <button type="submit">Adauga noua postare</button>
 </form>

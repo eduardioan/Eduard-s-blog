@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <header>
+
+
+        <h1 style="text-align:center;font-size:60px;"> Fărâme de lume</h1>
+        <div class="flex-container">>
+            <div class="col-md-10">
+                <img style="width: 1024px;display: block;  margin-left: auto;  margin-right: auto; "
+                     alt="Gradina japoneza"
+                     src="{% static 'images/poza_baza.jpg' %}"/>
+            </div>
+            <div class="col-md-1">
+                <div class="sidenav">
+                    <a href="{% url 'cuprins_blog' %}" class="btn btn-primary btn-lg active" role="button"
+                       aria-pressed="true">Ce conţine blogul?</a>
+
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+    <div class="container my-3">
+        <h2>Rezultatele căutării: </h2>
+        {% if object_list|length < 1 %}
+            <p>Nu am găsit rezultate.</p>
+            Căutarea : <b>{{ query }}</b> nu s-a potrivit cu nicio postare. <br>
+            Sugestii:
+            <ul>
+                <li>Verifică dacă ai scris corect cuvintele.</li>
+                <li>Caută cuvinte mai generale.</li>
+                <li> Introdu mai puţine cuvinte.</li>
+                <li> Caută alte cuvinte.</li>
+
+            </ul>
+
+        {% endif %}
+    </div>
+        <div class="row">
+            {% for post in object_list %}
+                <div class="col-md-4">
+
+                    <div class="card">
+
+                        <div class="card-body">
+
+                            <h2 class="card-title">{{ post.title }}</h2>
+                            <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on }}
+                                | {{ post.tags }}    </p>
+                            <p class="card-text">{{ post.content|striptags|safe|slice:":100" }}</p>
+                            <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Vezi mai mult &rarr;</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+
+
