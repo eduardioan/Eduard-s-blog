@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+{% block title %} Comentarii
+{% endblock %}
+{% block content %}
+            {% if new_comment %}
+
+          <p>Comentariul tau asteapta sa fie inscris</p>
+
+        {% else %}
+    <h1>Adauga comentariu</h1>
+    <br><br>
+    <div class="form-group">
+    <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <button class="btn btn-secondary" name = "send_comment">Adauga comentariul</button>
+
+    </form>
+            {% endif %}
+    </div>
+
+
+
+
+
+
+{% endblock %}

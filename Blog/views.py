@@ -2,8 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Q
 from django.db.models.sql import query
-from django.http import HttpResponse, request
-from django.shortcuts import render
+from django.http import HttpResponse, request, Http404
+from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.urls import reverse_lazy
 from django.views import generic
@@ -11,10 +11,10 @@ from django.views.generic import CreateView, ListView, TemplateView
 from requests import post
 from django.http import HttpResponseRedirect
 from Blog.filters import PostFilter
-from Blog.forms import PostForm
-from Blog.models import Post
+from Blog.forms import PostForm, CommentForm
+from Blog.models import Post, Comment
 from django import template
-
+from django.shortcuts import redirect
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'index.html'
@@ -23,8 +23,6 @@ class PostList(generic.ListView):
 class PostDetail(generic.DetailView):
     model = Post
     template_name = 'post_detail.html'
-
-
 
 
 class CreatePostView(LoginRequiredMixin, PermissionRequiredMixin,CreateView):
@@ -57,9 +55,7 @@ class SearchResultView(ListView):
         object_list = Post.objects.filter(content__icontains=query)
         return object_list
 
-# class TagsList(generic.ListView):
-#     queryset = Post.objects.filter(status=1, tags='').order_by('-created_on')
-#     template_name = 'tag_search.html'
+
 
 def show_despre_mine_page(request):
     return render(request, 'despre_mine.html')
@@ -75,14 +71,16 @@ def share_on_media(request, social, id):
     return HttpResponseRedirect(base_url)
 
 class PostListTag(generic.ListView):
+    allow_empty = True
     model = Post
     template_name = 'tag_select_list.html'
-
     def get_queryset(self):  # new
         req = self.request
         tags = None
         if "tag-select-check" in req.path:
             tags = self.__extract_tag_from_checkbox(req.GET)
+            if tags is None:
+                return
         else:
             tags = self.__extract_tag_from_ahref(self.request.path)
         items = Post.objects.all()
@@ -98,8 +96,32 @@ class PostListTag(generic.ListView):
         return tag[len(tag) - 1]
 
     def __extract_tag_from_checkbox(self, request):
+        if len(request) == 0:
+            return None
         return dict(request)['tag']
 
-# class DespreMine(generic.ListView):
-#     model = Post
-#     template_name = 'despre_mine.html'
+
+class AddCommentView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'add_comment.html'
+    def post(self, request, *args, **kwargs):
+        post_name_bucati = str(request.path).split('/')
+        post_name = post_name_bucati[len(post_name_bucati)-1]
+        post = get_object_or_404(Post, slug=post_name)
+        comments = post.comments.filter(active=True)
+        new_comment = None
+        # Comment posted
+        if request.method == 'POST':
+            comment_form = CommentForm(data=request.POST)
+            if comment_form.is_valid():
+                # cOMMENT NESALVAT
+                new_comment = comment_form.save(commit=True)
+
+                new_comment.post = post
+                # sALVEZ IN BAZA
+                new_comment.save()
+                print(new_comment)
+        else:
+            comment_form = CommentForm()
+        return HttpResponseRedirect(self.request.path_info)

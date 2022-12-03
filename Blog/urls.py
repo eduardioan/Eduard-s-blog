@@ -18,4 +18,6 @@ urlpatterns = [
     path('blog/share/<str:social>/<str:id>', share_on_media, name="share_on_media"),
     # path('blog/share-whatsapp/<str:id>', share_on_whatsapp_func, name="share_on_whatsapp"),
     # path('blog/despre/', DespreMine.as_view(), name='despre_mine'),
+    # path('<slug:slug>/', views.post_details, name='post_detail'),
+    path('blog/comment/<slug:slug>', views.AddCommentView.as_view(), name='add_comment'),
 ]

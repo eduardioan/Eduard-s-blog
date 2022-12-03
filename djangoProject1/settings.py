@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'django_social_share',
     'newsletter',
+    'crispy_forms',
 
 
 ]
@@ -84,7 +85,7 @@ TEMPLATES = [
         },
     },
 ]
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 WSGI_APPLICATION = 'djangoProject1.wsgi.application'
 
 

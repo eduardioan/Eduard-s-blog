@@ -5,7 +5,7 @@ from newsletter import forms
 from newsletter.forms import NewsUserForm
 from newsletter.models import NewsUsers
 from django.core.mail import send_mail
-
+from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.core.mail import send_mail
 
@@ -20,8 +20,22 @@ def newsletter_subscribe(request):
       else:
         instance.save()
         print("mail adaugat")
+    return render(request, "newsletter/subscription_done.html")
   else:
     form = NewsUserForm()
+
+  # ---- start send email ----
+  # newUsers = NewsUsers.objects.all()
+  # for newUser in newUsers:
+  #   email = newUser.email
+  #   send_mail(
+  #     subject="Test 1",
+  #     message="Hey, a aparut un post nou!",
+  #     from_email=settings.EMAIL_HOST_USER,
+  #     recipient_list=[email]
+  #   )
+  # ---------------------------
+
   context = {'form': form}
   template = "newsletter/subscribe.html"
   return render(request, template, context)
