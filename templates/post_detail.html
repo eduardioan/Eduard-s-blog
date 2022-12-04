@@ -18,7 +18,14 @@
                         <a href="{% url 'share_on_media' social=2 id=post.title %}"><img src="{% static 'images/whatsapp.png' %}"></a>
 
                     <p style="text-align:justify;font-size:50px;">{{ object.content | safe }}</p>
+                <div>
 
+            <form action="{% url 'send_newsletter' post.slug %}" method="POST">
+                 {% csrf_token %}
+                <input type="submit" name="newsletter_sub" value="Subscribe" />
+            </form>
+
+                </div>
                 </div>
             </div>
 
@@ -52,20 +59,5 @@
     <a href="{% url 'add_comment' post.slug %}"> &nbsp; &nbsp;Adauga comentariu nou</a>
       </div>
     </div>
-{#    <div class="col-md-8 card mb-4  mt-3 ">#}
-{#      <div class="card-body">#}
-{#        {% if new_comment %}#}
-{#        <div class="alert alert-success" role="alert">#}
-{#          Your comment is awaiting moderation#}
-{#        </div>#}
-{#        {% else %}#}
-{#        <h3>Leave a comment</h3>#}
-{#        <form method="post" style="margin-top: 1.3em;">#}
-{#          {{ comment_form.as_p }}#}
-{#          {% csrf_token %}#}
-{#          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>#}
-{#        </form>#}
-{#        {% endif %}#}
-{#      </div>#}
-{#    </div>#}
+
 {% endblock content %}

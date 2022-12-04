@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'crispy_forms',
 
 
+
 ]
 TAGGIT_CASE_INSENSITIVE = True
 MIDDLEWARE = [

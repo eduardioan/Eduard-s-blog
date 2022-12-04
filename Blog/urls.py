@@ -20,4 +20,5 @@ urlpatterns = [
     # path('blog/despre/', DespreMine.as_view(), name='despre_mine'),
     # path('<slug:slug>/', views.post_details, name='post_detail'),
     path('blog/comment/<slug:slug>', views.AddCommentView.as_view(), name='add_comment'),
+    path('blog/send-newsletter/<slug:slug>', new_post_newsletter, name='send_newsletter')
 ]

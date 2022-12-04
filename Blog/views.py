@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.mail import send_mail
 from django.db.models import Q
 from django.db.models.sql import query
 from django.http import HttpResponse, request, Http404
@@ -15,6 +17,10 @@ from Blog.forms import PostForm, CommentForm
 from Blog.models import Post, Comment
 from django import template
 from django.shortcuts import redirect
+
+from newsletter.models import NewsUsers
+
+
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'index.html'
@@ -25,12 +31,14 @@ class PostDetail(generic.DetailView):
     template_name = 'post_detail.html'
 
 
+
 class CreatePostView(LoginRequiredMixin, PermissionRequiredMixin,CreateView):
     model = Post
     form_class = PostForm
     template_name = 'post.html'
     success_url = reverse_lazy("home")
     permission_required = 'blog.view_post'
+
 class FullPostList(ListView):
     model = Post
     form_class = PostForm
@@ -125,3 +133,19 @@ class AddCommentView(CreateView):
         else:
             comment_form = CommentForm()
         return HttpResponseRedirect(self.request.path_info)
+def new_post_newsletter(request,slug):
+    if request.method == 'POST':
+        link_server = request.build_absolute_uri('/')
+        link_server = link_server[:len(link_server)-1]
+        link_nou = link_server + str(request.path).replace("/blog/send-newsletter", "")
+        users = NewsUsers.objects.all()
+        for user in users:
+            email = user.email
+            send_mail(
+              subject="O noua postare!",
+              message=f"Hey, {user.name} o noua postare a aparut. Mergi pe: {link_nou}",
+              from_email=settings.EMAIL_HOST_USER,
+              recipient_list=[email]
+            )
+
+    return redirect("home")
